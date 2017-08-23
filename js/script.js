@@ -1,7 +1,33 @@
+var usa= [[-130, 36],[-70, 36]];
+
+var west=[
+  [-122.44400,36.77633],
+  [-119.44400,38.77633]];
+
+var aptosRoute=[
+  [-121.89744598253198,36.97906712090746],
+  [-121.58798709768324,38.46498212728306]];
+
+var sfRoute =[
+  [-122.4270763147806,37.759776381564805], [-121.58798596475458,38.4649835597597]];
+
+var livermoreRoute =[
+  [-121.76747182280735,37.68216993091406],
+  [-121.58798596475458,38.4649835597597]];
+
+var livermoreView =[
+  [-121.1747182280735,37.58216993091406],
+  [-121.08798596475458,38.5649835597597]];
+
+var sfView =[
+  [-122.1270763147806,37.259776381564805], [-120.8798596475458,38.7649835597597]];
+
+var aptosView=[
+  [-121.09744598253198,36.77906712090746],
+  [-120.98798709768324,38.9649835597597]];
 
 //initial map load
 map.on('load', function() {
-
   map.addLayer({
     id: "points",
     type: "symbol",
@@ -49,15 +75,11 @@ map.on('load', function() {
       "text-color": "#22272E",
     }
   });
-});
-
+  });
 
 //back actions
 $('.back').click(function() {
-  map.fitBounds([
-    [-130, 36],
-    [-70, 36]
-  ]);
+  map.fitBounds(usa);
   map.setLayoutProperty('route', 'visibility', 'none');
   $('.marker').hide();
   $('.map').css('border-radius', '0 0 4px 4px');
@@ -68,14 +90,7 @@ $('.back').click(function() {
 // action on places
 map.on('load', function() {
   map.on('click', 'points', function(e) {
-    map.fitBounds([
-      [-120.44400,
-        32.776339
-      ],
-      [-117.44400,
-        39.776339
-      ]
-    ]);
+    map.fitBounds(west);
     $('.sidebar').css('width', '400px');
     $('.map').css('border-radius', '0 0 4px 0');
     $('.marker').show();
@@ -145,10 +160,10 @@ $(".option2").on('mouseleave', function() {
 });
 
 //inverse selection
-$(".marker:eq(1)").on('mouseenter', function() {
-  $(".option1").css('color', '#22A5F7');
-});
 $(".marker:eq(0)").on('mouseenter', function() {
+  $(".option0").css('color', '#22A5F7');
+});
+$(".marker:eq(1)").on('mouseenter', function() {
   $(".option1").css('color', '#22A5F7');
 });
 $(".marker:eq(2)").on('mouseenter', function() {
@@ -180,9 +195,7 @@ map.on('load', function() {
         "properties": {},
         "geometry": {
           "type": "LineString",
-          "coordinates": [
-            [-122.4270763147806,37.759776381564805], [-121.58798596475458,38.4649835597597]
-          ]
+          "coordinates": sfRoute
         }
       }
     },
@@ -214,10 +227,7 @@ map.on('load', function() {
         "properties": {},
         "geometry": {
           "type": "LineString",
-          "coordinates": [
-            [-121.58798596475458,38.4649835597597],
-            [-121.76747182280735,37.68216993091406]
-          ]
+          "coordinates": livermoreRoute
         }
       }
     },
@@ -248,10 +258,7 @@ map.on('load', function() {
         "properties": {},
         "geometry": {
           "type": "LineString",
-          "coordinates": [
-            [-121.58798709768324,38.46498212728306],
-            [-121.89744598253198,36.97906712090746]
-          ]
+          "coordinates": aptosRoute
         }
       }
     },
@@ -276,56 +283,51 @@ $('.option0, .marker:eq(0)').click(function(e) {
   var visibility = map.getLayoutProperty('route', 'visibility');
   $('.anex:eq(0)').toggle();
 
-
   if (visibility === 'visible') {
-    map.fitBounds([
-        [-120.44400,
-          32.776339
-        ],
-        [-117.44400,
-          39.776339
-        ]
-      ]),
-      map.setLayoutProperty('route', 'visibility', 'none');
-  } else {
-    map.fitBounds([
-        [-122.44400,
-          36.2
-        ],
-        [-117.44400,
-          39.776339
-        ]
-      ]),
-      $('.anex:eq(1),.anex:eq(2) ').hide(),
-      $('.sidebar').scrollTop('0'),
-      map.setLayoutProperty('route2', 'visibility', 'none'),
-      map.setLayoutProperty('route1', 'visibility', 'none'),
-      map.setLayoutProperty('route', 'visibility', 'visible');
+    map.fitBounds(west);
+    map.setLayoutProperty('route', 'visibility', 'none');
+  }
+  else {
+    map.fitBounds(sfView);
+    $('.anex:eq(1),.anex:eq(2) ').hide(),
+    $('.sidebar').animate({scrollTop:0}, 500, 'swing');
+    map.setLayoutProperty('route2', 'visibility', 'none'),
+    map.setLayoutProperty('route1', 'visibility', 'none'),
+    map.setLayoutProperty('route', 'visibility', 'visible');
   }
 });
-$('.option2, .marker:eq(2)').click(function(e) {
-  var visibility = map.getLayoutProperty('route2', 'visibility');
-  $('.anex:eq(2)').toggle();
 
+$('.option1, .marker:eq(1)').click( function(e) {
+  var visibility = map.getLayoutProperty('route1', 'visibility');
+  $('.anex:eq(1)').toggle();
 
   if (visibility === 'visible') {
-    map.fitBounds([
-        [-120.44400,
-          32.776339
-        ],
-        [-117.44400,
-          39.776339
-        ]
-      ]),
+    map.fitBounds(west);
+    map.setLayoutProperty('route1', 'visibility', 'none');
+  }
+  else {
+    map.fitBounds(livermoreView);
+    $('.sidebar').animate({scrollTop:200}, 500, 'swing');
+    $('.anex:eq(0),.anex:eq(2)').hide(),
+    map.setLayoutProperty('route', 'visibility', 'none'),
+    map.setLayoutProperty('route1', 'visibility', 'visible'),
+    map.setLayoutProperty('route2', 'visibility', 'none');
+  }
+});
+
+$('.option2, .marker:eq(2)').click(function(e) {
+  var visibility = map.getLayoutProperty('route2', 'visibility');
+
+  $('.anex:eq(2)').toggle();
+
+  if (visibility === 'visible') {
+      map.fitBounds(west);
       map.setLayoutProperty('route2', 'visibility', 'none');
-  } else {
-    map.fitBounds([
-        [-120.414, 34.776],
-        [-117.44400,
-          38.776339
-        ]
-      ]),
-      $('.sidebar').scrollTop('600'),
+  }
+  else {
+      map.fitBounds(aptosView);
+      $('.sidebar').animate({scrollTop:600}, 500, 'swing');
+      // $('.sidebar').scrollTop('600'),
       $('.anex:eq(0),.anex:eq(1) ').hide(),
       map.setLayoutProperty('route', 'visibility', 'none'),
       map.setLayoutProperty('route1', 'visibility', 'none'),
