@@ -92,11 +92,10 @@ a{
 
 .marker {
   @include hover('',$blue-1);
-  @include size(12px, 12px);
+  @include size(10px, 10px);
   display: none;
   background-color:#36D068;
   border-radius: 20px;
-  position: relative;
   border: 1.5px solid $white;
 }
 

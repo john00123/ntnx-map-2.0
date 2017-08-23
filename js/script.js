@@ -1,5 +1,4 @@
 
-
 //initial map load
 map.on('load', function() {
 
@@ -11,35 +10,38 @@ map.on('load', function() {
       type: "geojson",
       data: {
         type: "FeatureCollection",
-        features: [{
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [-77, 38]
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [-77, 38]
+            },
+            properties: {
+              title: "US-East",
+              icon: "circle"
+            }
           },
-          properties: {
-            title: "US-East",
-            icon: "circle"
-          }
-        }, {
-          type: "Feature",
 
-          geometry: {
-            type: "Point",
-            coordinates: [-120, 37.776]
-          },
-          properties: {
-            title: "US-West",
-            icon: "circle"
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [-121.58798752393574, 38.46498158751788],
+            },
+            properties: {
+              title: "US-West",
+              icon: "circle"
+            }
           }
-        }]
+        ]
       }
     },
     layout: {
       "icon-image": "{icon}-11",
       "text-field": "{title}",
       "text-font": ["Open Sans Regular", "Arial Unicode MS Bold"],
-      "text-size": 14,
+      "text-size": 12,
       "text-offset": [0, 0.6],
       "text-anchor": "top"
     },
@@ -122,10 +124,10 @@ while (i < 3) {
 //mouse enter for sites
 
 $(".option0").on('mouseenter', function() {
-  $(".marker:eq(1)").css('background-color', '#22A5F7');
+  $(".marker:eq(0)").css('background-color', '#22A5F7');
 });
 $(".option1").on('mouseenter', function() {
-  $(".marker:eq(0)").css('background-color', '#22A5F7');
+  $(".marker:eq(1)").css('background-color', '#22A5F7');
 });
 $(".option2").on('mouseenter', function() {
   $(".marker:eq(2)").css('background-color', '#22A5F7');
@@ -133,10 +135,10 @@ $(".option2").on('mouseenter', function() {
 
 //mouseleave
 $(".option0").on('mouseleave', function() {
-  $(".marker:eq(1)").css('background-color', '');
+  $(".marker:eq(0)").css('background-color', '');
 });
 $(".option1").on('mouseleave', function() {
-  $(".marker:eq(0)").css('background-color', '');
+  $(".marker:eq(1)").css('background-color', '');
 });
 $(".option2").on('mouseleave', function() {
   $(".marker:eq(2)").css('background-color', '');
@@ -144,7 +146,7 @@ $(".option2").on('mouseleave', function() {
 
 //inverse selection
 $(".marker:eq(1)").on('mouseenter', function() {
-  $(".option0").css('color', '#22A5F7');
+  $(".option1").css('color', '#22A5F7');
 });
 $(".marker:eq(0)").on('mouseenter', function() {
   $(".option1").css('color', '#22A5F7');
@@ -155,17 +157,17 @@ $(".marker:eq(2)").on('mouseenter', function() {
 
 
 //inverse selection
-$(".marker:eq(1)").on('mouseleave', function() {
+$(".marker:eq(0)").on('mouseleave', function() {
   $(".option0").css('color', '');
 });
-$(".marker:eq(0)").on('mouseleave', function() {
+$(".marker:eq(1)").on('mouseleave', function() {
   $(".option1").css('color', '');
 });
 $(".marker:eq(2)").on('mouseleave', function() {
   $(".option2").css('color', '');
 });
 
-//map on load lines
+//San Francisco
 map.on('load', function() {
   map.addLayer({
     "id": "route",
@@ -179,8 +181,7 @@ map.on('load', function() {
         "geometry": {
           "type": "LineString",
           "coordinates": [
-            [-120.2, 37.776],
-            [-122.2, 37.72]
+            [-122.4270763147806,37.759776381564805], [-121.58798596475458,38.4649835597597]
           ]
         }
       }
@@ -200,7 +201,41 @@ map.on('load', function() {
 
 });
 
-//third line
+//Livermore
+map.on('load', function() {
+  map.addLayer({
+    "id": "route1",
+    "className": "alpha",
+    "type": "line",
+    "source": {
+      "type": "geojson",
+      "data": {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [-121.58798596475458,38.4649835597597],
+            [-121.76747182280735,37.68216993091406]
+          ]
+        }
+      }
+    },
+    "layout": {
+      "line-join": "round",
+      "line-cap": "round",
+      "visibility": "none"
+    },
+    "paint": {
+      "line-dasharray": [0, 3],
+      "line-color": "#22A5F7",
+      "line-width": 1
+    }
+  });
+
+});
+
+//Aptos
 map.on('load', function() {
   map.addLayer({
     "id": "route2",
@@ -214,8 +249,8 @@ map.on('load', function() {
         "geometry": {
           "type": "LineString",
           "coordinates": [
-            [-120.05, 37.5],
-            [-120.32, 35.65]
+            [-121.58798709768324,38.46498212728306],
+            [-121.89744598253198,36.97906712090746]
           ]
         }
       }
@@ -229,7 +264,6 @@ map.on('load', function() {
       "line-dasharray": [0, 3],
       "line-color": "#22A5F7",
       "line-width": 1
-
     }
   });
 
@@ -238,7 +272,7 @@ map.on('load', function() {
 
 //action on dots or LineString
 
-$('.option0, .marker:eq(1)').click(function(e) {
+$('.option0, .marker:eq(0)').click(function(e) {
   var visibility = map.getLayoutProperty('route', 'visibility');
   $('.anex:eq(0)').toggle();
 

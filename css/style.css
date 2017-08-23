@@ -131,13 +131,12 @@ a:hover {
 }
 
 .marker {
-  height: 12px;
-  width: 12px;
+  height: 10px;
+  width: 10px;
   box-sizing: border-box;
   display: none;
   background-color: #36D068;
   border-radius: 20px;
-  position: relative;
   border: 1.5px solid #FFFFFF;
 }
 
