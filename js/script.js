@@ -81,6 +81,8 @@ map.on('load', function() {
 $('.back').click(function() {
   map.fitBounds(usa);
   map.setLayoutProperty('route', 'visibility', 'none');
+  map.setLayoutProperty('route1', 'visibility', 'none');
+  map.setLayoutProperty('route2', 'visibility', 'none');
   $('.marker').hide();
   $('.map').css('border-radius', '0 0 4px 4px');
   $('.sidebar').css('width', '');
