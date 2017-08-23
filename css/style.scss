@@ -2,6 +2,7 @@
 @import '../../_ntnx/variables';
 @import '../../_ntnx/mixins';
 
+
 html{
   @include font;
   background-color: $background-color-3;
@@ -12,9 +13,11 @@ body{
   @include size(100vh, 100%);
 }
 
-h5, h4{ font:$h3-alt; }
+h5, h4{ font:$h3-alt;
+font-weight: 500; }
 
 span{color:$green-1;}
+
 
 a{
   opacity: 0;
@@ -22,6 +25,7 @@ a{
   @include transition(opacity);
   font-weight: 400;
 }
+
 
 .super-map{
   @include size('auto', 485px);
@@ -48,47 +52,10 @@ a{
   @include flex(center, '', '');
   @include size(314px, 485px);
   position: relative;
-  background-color: $background-color-2;
   border-radius: 0 0 4px 4px;
   overflow: hidden;
+  @include shadow;
 }
-
-.sidebar{
-  @include transition(width);
-  @include size(100%, 0);
-  background-color: $white;
-  border-top: 1px solid $border-color-3;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.cluster{
-  @include size(auto, 220px);
-  @include hover($blue-1);
-  border-bottom: 1px solid $border-color-3;
-  overflow-x: hidden;
-  padding: 5px 15px;
-}
-
-.alt{
-  padding-left: 19px;
-  font: $p-alt;
-}
-
-.mapboxgl-ctrl{
-  display: none;
-  opacity: 0;
-}
-
-.map {
-  @include size(100%, 100%)
-  display: flex;
-  flex-grow: 1;
-  z-index: 1;
-  border-radius: 0 0 4px 4px;
-}
-
 
 .marker {
   @include hover('',$blue-1);
@@ -99,57 +66,94 @@ a{
   border: 1.5px solid $white;
 }
 
+.map {
+  @include size(100%, 100%)
+  display: flex;
+  flex-grow: 1;
+  z-index: 1;
+  border-radius: 0 0 4px 4px;
+}
+
+.mapboxgl-ctrl{
+  display: none;
+  opacity: 0;
+}
+
+
+//sidebar
+.sidebar{
+  @include transition(width);
+  @include size(100%, 0);
+  background-color: $white;
+  border-top: 1px solid $border-color-3;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+
+
 .back{
   @include arrow;
   @include hover($blue-1);
-  @include size(42px, 220px);
+  @include size(40px, 220px);
   color: $blue-1;
   display: block;
-  padding: 0 34px;
+  padding: 0 35px;
   border-bottom: 1px solid $border-color-3;
   overflow-x: hidden;
   font: 400 14px/40px 'nutanix_soft', sans-serif;
 
   &:before, &:after{
   top: 15px;
-  left:17.5px;
+  left:23px;
   opacity: 1;
   }
 
   &:after{ top:15px + 3.5px; }
 }
 
+.cluster{
+  @include size(auto, 220px);
+  @include hover($blue-1);
+  border-bottom: 1px solid $border-color-3;
+  overflow-x: hidden;
+  padding:0 20px;
+  h4, h4 span{
+    margin-top: 20px;
+    margin-bottom:15px;
+  }
+  .alt{
+    padding-left: 15px;
+    font: $p-alt;
+    margin-bottom:20px;
+  }
+}
 
 
-//classes for javascript
-
-.visible{ opacity: 1; }
-
+//anex to cluster view
 .anex{
   color: $font-color-1;
-  margin-top: 20px;
+  margin-top: -5px;
   display: none;
-  padding-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .line{
   @include flex(center, space-between, '');
-  padding: 0 20px;
+  padding: 0 10px 5px 15px ;
   margin-bottom: 0;
   line-height: 10px;
+  p{
+    margin: 5px 0;
+    &:first-child{color:#627386;}
+    &:last-child{font-weight: 400;}
+  }
 }
 
-.line p{
-  margin-bottom: 0;
-  margin-top: 5px;
-}
-.line p:first-child{
-  color:#627386;
-  margin-bottom: 5px;
-}
 
-.line p:last-child{
-  color:#22272E;
-  margin-bottom: 5px;
-  font-weight: 400;
-}
+
+//classes for javascript
+
+.visible{opacity: 1;}
+.selected{background: $blue-1;}

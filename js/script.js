@@ -117,7 +117,7 @@ var i = 0;
 while (i < 3) {
   $(".sidebar").append(
     "<div class='cluster option" + [i] + "'>\
-      <h4><span>● </span>&nbsp;  " + geojson.features[i].properties.title + "</h4>\
+      <h4><span>●</span>&nbsp;  " + geojson.features[i].properties.title + "</h4>\
       <p class='alt'>" + geojson.features[i].properties.description + "</p>\
       <article class = 'anex'>\
       <div class = line>\

@@ -19,6 +19,7 @@ body {
 
 h5, h4 {
   font: 400 14px/10px "nutanix_soft", san-serif;
+  font-weight: 500;
 }
 
 span {
@@ -78,56 +79,9 @@ a:hover {
   width: 485px;
   box-sizing: border-box;
   position: relative;
-  background-color: #37414B;
   border-radius: 0 0 4px 4px;
   overflow: hidden;
-}
-
-.sidebar {
-  transition: width 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  height: 100%;
-  width: 0;
-  box-sizing: border-box;
-  background-color: #FFFFFF;
-  border-top: 1px solid #F2F4F6;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.cluster {
-  height: auto;
-  width: 220px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #F2F4F6;
-  overflow-x: hidden;
-  padding: 5px 15px;
-}
-
-.cluster:hover {
-  cursor: pointer;
-  color: #22A5F7;
-  background-color: none;
-}
-
-.alt {
-  padding-left: 19px;
-  font: 300 14px/10px "nutanix_soft", san-serif;
-}
-
-.mapboxgl-ctrl {
-  display: none;
-  opacity: 0;
-}
-
-.map {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-grow: 1;
-  z-index: 1;
-  border-radius: 0 0 4px 4px;
+  box-shadow: 0 9px 9px 0 rgba(0, 0, 0, 0.02), 0 3px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 1px 0 rgba(0, 0, 0, 0.02);
 }
 
 .marker {
@@ -146,14 +100,41 @@ a:hover {
   background-color: #22A5F7;
 }
 
+.map {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  z-index: 1;
+  border-radius: 0 0 4px 4px;
+}
+
+.mapboxgl-ctrl {
+  display: none;
+  opacity: 0;
+}
+
+.sidebar {
+  transition: width 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  height: 100%;
+  width: 0;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border-top: 1px solid #F2F4F6;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .back {
   position: relative;
-  height: 42px;
+  height: 40px;
   width: 220px;
   box-sizing: border-box;
   color: #22A5F7;
   display: block;
-  padding: 0 34px;
+  padding: 0 35px;
   border-bottom: 1px solid #F2F4F6;
   overflow-x: hidden;
   font: 400 14px/40px 'nutanix_soft', sans-serif;
@@ -199,7 +180,7 @@ a:hover {
 
 .back:before, .back:after {
   top: 15px;
-  left: 17.5px;
+  left: 23px;
   opacity: 1;
 }
 
@@ -207,15 +188,37 @@ a:hover {
   top: 18.5px;
 }
 
-.visible {
-  opacity: 1;
+.cluster {
+  height: auto;
+  width: 220px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #F2F4F6;
+  overflow-x: hidden;
+  padding: 0 20px;
+}
+
+.cluster:hover {
+  cursor: pointer;
+  color: #22A5F7;
+  background-color: none;
+}
+
+.cluster h4, .cluster h4 span {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.cluster .alt {
+  padding-left: 15px;
+  font: 300 14px/10px "nutanix_soft", san-serif;
+  margin-bottom: 20px;
 }
 
 .anex {
   color: #22272E;
-  margin-top: 20px;
+  margin-top: -5px;
   display: none;
-  padding-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .line {
@@ -223,23 +226,27 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   flex-direction: "";
-  padding: 0 20px;
+  padding: 0 10px 5px 15px;
   margin-bottom: 0;
   line-height: 10px;
 }
 
 .line p {
-  margin-bottom: 0;
-  margin-top: 5px;
+  margin: 5px 0;
 }
 
 .line p:first-child {
   color: #627386;
-  margin-bottom: 5px;
 }
 
 .line p:last-child {
-  color: #22272E;
-  margin-bottom: 5px;
   font-weight: 400;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.selected {
+  background: #22A5F7;
 }
