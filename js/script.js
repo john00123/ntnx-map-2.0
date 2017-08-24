@@ -86,6 +86,7 @@ $('.back').click(function() {
   $('.marker').hide();
   $('.map').css('border-radius', '0 0 4px 4px');
   $('.sidebar').css('width', '');
+  map.resize(container);
 });
 
 
@@ -114,24 +115,30 @@ map.on('load', function() {
 
 //add elements to list
 var i = 0;
+const data={
+  Bandwith: [300, 500, 700],
+  Live:[5, 5000, 503],
+  Replicated:[5000, 12000, 3000]
+}
+
 while (i < 3) {
   $(".sidebar").append(
     "<div class='cluster option" + [i] + "'>\
       <h4><span>●</span>&nbsp;  " + geojson.features[i].properties.title + "</h4>\
       <p class='alt'>" + geojson.features[i].properties.description + "</p>\
       <article class = 'anex'>\
-      <div class = line>\
-        <p>DR Bandwith</p><p>Value1</p>\
-      </div>\
-      <div class = line>\
-        <p>Live Vms</p><p>5</p>\
-      </div>\
-      <div class = line>\
-        <p>Replicated Vms</p><p>500</p>\
-      </div>\
-      <div class = line>\
-        <p>Service Status</p><p>Ok</p>\
-      </div>\
+        <div class='line'>\
+          <p>"+ Object.keys(data)[0]+"</p><p>" + data.Bandwith[i] + "Tbps</p>\
+        </div>\
+        <div class='line'>\
+          <p>"+ Object.keys(data)[1]+" VMs</p><p>" + data.Live[i] + "</p>\
+        </div>\
+        <div class='line'>\
+          <p>"+ Object.keys(data)[2]+" VMs</p><p>" + data.Replicated[i] + "</p>\
+        </div>\
+        <div class='line'>\
+          <p>Service Status</p><p>OK</p>\
+        </div>\
       </article>\
       </div>"
   );
@@ -328,8 +335,7 @@ $('.option2, .marker:eq(2)').click(function(e) {
   }
   else {
       map.fitBounds(aptosView);
-      $('.sidebar').animate({scrollTop:600}, 500, 'swing');
-      // $('.sidebar').scrollTop('600'),
+      $('.sidebar').animate({scrollTop:600}, 600, 'swing');
       $('.anex:eq(0),.anex:eq(1) ').hide(),
       map.setLayoutProperty('route', 'visibility', 'none'),
       map.setLayoutProperty('route1', 'visibility', 'none'),

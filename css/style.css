@@ -226,21 +226,14 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   flex-direction: "";
-  padding: 0 10px 5px 15px;
+  padding: 0 13px 5px 15px;
   margin-bottom: 0;
   line-height: 10px;
+  color: #627386;
 }
 
 .line p {
   margin: 5px 0;
-}
-
-.line p:first-child {
-  color: #627386;
-}
-
-.line p:last-child {
-  font-weight: 400;
 }
 
 .visible {
