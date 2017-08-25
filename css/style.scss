@@ -153,8 +153,18 @@ a{
 }
 
 
-
 //classes for javascript
 
+.main{
+  @extend .marker;
+  display: block;
+  opacity: 1;
+  border-radius: 0;
+  background-color: $background-color-2;
+  &:last-of-type{
+    opacity: 0.3;
+  }
+}
 .visible{opacity: 1;}
+.expanded{width: 400px;}
 .selected{background: $blue-1;}

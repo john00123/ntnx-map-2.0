@@ -1,344 +1,104 @@
-var usa= [[-130, 36],[-70, 36]];
+function routeHide(){
+  for (i = 0; i < geojson.features.length-2; i++) {
+  map.setLayoutProperty('route' + i.toString() + '', 'visibility', 'none');
+  }
+}
 
-var west=[
-  [-122.44400,36.77633],
-  [-119.44400,38.77633]];
-
-var aptosRoute=[
-  [-121.89744598253198,36.97906712090746],
-  [-121.58798709768324,38.46498212728306]];
-
-var sfRoute =[
-  [-122.4270763147806,37.759776381564805], [-121.58798596475458,38.4649835597597]];
-
-var livermoreRoute =[
-  [-121.76747182280735,37.68216993091406],
-  [-121.58798596475458,38.4649835597597]];
-
-var livermoreView =[
-  [-121.1747182280735,37.58216993091406],
-  [-121.08798596475458,38.5649835597597]];
-
-var sfView =[
-  [-122.1270763147806,37.259776381564805], [-120.8798596475458,38.7649835597597]];
-
-var aptosView=[
-  [-121.09744598253198,36.77906712090746],
-  [-120.98798709768324,38.9649835597597]];
-
-//initial map load
+// action datacenter
 map.on('load', function() {
-  map.addLayer({
-    id: "points",
-    type: "symbol",
+  $('.marker:eq(3) , .marker:eq(4)').addClass('main');
+  $('.main').removeClass('marker');
 
-    source: {
-      type: "geojson",
-      data: {
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates: [-77, 38]
-            },
-            properties: {
-              title: "US-East",
-              icon: "circle"
-            }
-          },
-
-          {
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates: [-121.58798752393574, 38.46498158751788],
-            },
-            properties: {
-              title: "US-West",
-              icon: "circle"
-            }
-          }
-        ]
-      }
-    },
-    layout: {
-      "icon-image": "{icon}-11",
-      "text-field": "{title}",
-      "text-font": ["Open Sans Regular", "Arial Unicode MS Bold"],
-      "text-size": 12,
-      "text-offset": [0, 0.6],
-      "text-anchor": "top"
-    },
-    paint: {
-      "text-color": "#22272E",
-    }
-  });
-  });
-
-//back actions
-$('.back').click(function() {
-  map.fitBounds(usa);
-  map.setLayoutProperty('route', 'visibility', 'none');
-  map.setLayoutProperty('route1', 'visibility', 'none');
-  map.setLayoutProperty('route2', 'visibility', 'none');
-  $('.marker').hide();
-  $('.map').css('border-radius', '0 0 4px 4px');
-  $('.sidebar').css('width', '');
-  map.resize(container);
-});
-
-
-// action on places
-map.on('load', function() {
-  map.on('click', 'points', function(e) {
-    map.fitBounds(west);
-    $('.sidebar').css('width', '400px');
-    $('.map').css('border-radius', '0 0 4px 0');
-    $('.marker').show();
-    $('.anex').hide();
-  });
-
-
-  //hover on Sites
-  map.on('mouseenter', 'points', function() {
+  //hover on datacenter
+  map.on('mouseenter', 'dataCenter', function() {
     map.getCanvas().style.cursor = 'pointer';
   });
-  //
-  //  // Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'points', function() {
+  map.on('mouseleave', 'dataCenter', function() {
     map.getCanvas().style.cursor = '';
   });
-});
 
+  //datacenter click
+  map.on('click', 'dataCenter', function() {
+    map.fitBounds(Object.values(locationView)[0]);
+    $('.anex').hide();
+    $('.marker').show();
+    $('.map').css('border-bottom-left-radius', '0');
+    $('.sidebar').css('width', '400px');
+  });
+
+  //back actions
+  $('.back').click(function() {
+    routeHide();
+    map.fitBounds(Object.values(locationView)[0]);
+    $('.marker').removeClass('selected');
+    $('.marker').hide();
+    $('.map').css('border-bottom-left-radius', '4px');
+    $('.sidebar').css('width', '');
+    map.resize(container); //reference error to force resizing.
+  });
+});
 
 //add elements to list
-var i = 0;
-const data={
-  Bandwith: [300, 500, 700],
-  Live:[5, 5000, 503],
-  Replicated:[5000, 12000, 3000]
+const data = {
+  Bandwith: ['300 Tbps', '500 Tbps', '700 Tbps'],
+  Live: ['5 VMs', '5000 VMs', '503 VMs'],
+  Replicated: ['5000 VMs', '12000 VMs', '3000 VMs'],
+  Services: ['OK', 'Slow', 'OK']
 }
 
-while (i < 3) {
+//insert data into html
+for (i = 0; i < $('.marker').length-2; i++) {
   $(".sidebar").append(
     "<div class='cluster option" + [i] + "'>\
-      <h4><span>●</span>&nbsp;  " + geojson.features[i].properties.title + "</h4>\
+      <h4><span>● </span>&nbsp;" + geojson.features[i].properties.title + "</h4>\
       <p class='alt'>" + geojson.features[i].properties.description + "</p>\
-      <article class = 'anex'>\
-        <div class='line'>\
-          <p>"+ Object.keys(data)[0]+"</p><p>" + data.Bandwith[i] + "Tbps</p>\
-        </div>\
-        <div class='line'>\
-          <p>"+ Object.keys(data)[1]+" VMs</p><p>" + data.Live[i] + "</p>\
-        </div>\
-        <div class='line'>\
-          <p>"+ Object.keys(data)[2]+" VMs</p><p>" + data.Replicated[i] + "</p>\
-        </div>\
-        <div class='line'>\
-          <p>Service Status</p><p>OK</p>\
-        </div>\
-      </article>\
-      </div>"
+      <article class = 'anex'></article>\
+    </div>"
   );
-  i++;
+
+  //insert values on hidden container, visible on selection
+  for (t = 0; t < Object.keys(data).length; t++) {
+    $('.anex:eq(' + i + ')').append(
+      "<div class='line'>\<p>" +
+      Object.keys(data)[t] + "</p><p>" + Object.values(data)[t][i] + "</p></div>"
+    );
+  }
 }
 
-//mouse enter for sites
+//hover on sites and map marks
+for (let i = 0; i < $('.cluster').length; i++){
 
-$(".option0").on('mouseenter', function() {
-  $(".marker:eq(0)").css('background-color', '#22A5F7');
-});
-$(".option1").on('mouseenter', function() {
-  $(".marker:eq(1)").css('background-color', '#22A5F7');
-});
-$(".option2").on('mouseenter', function() {
-  $(".marker:eq(2)").css('background-color', '#22A5F7');
-});
-
-//mouseleave
-$(".option0").on('mouseleave', function() {
-  $(".marker:eq(0)").css('background-color', '');
-});
-$(".option1").on('mouseleave', function() {
-  $(".marker:eq(1)").css('background-color', '');
-});
-$(".option2").on('mouseleave', function() {
-  $(".marker:eq(2)").css('background-color', '');
-});
-
-//inverse selection
-$(".marker:eq(0)").on('mouseenter', function() {
-  $(".option0").css('color', '#22A5F7');
-});
-$(".marker:eq(1)").on('mouseenter', function() {
-  $(".option1").css('color', '#22A5F7');
-});
-$(".marker:eq(2)").on('mouseenter', function() {
-  $(".option2").css('color', '#22A5F7');
-});
-
-
-//inverse selection
-$(".marker:eq(0)").on('mouseleave', function() {
-  $(".option0").css('color', '');
-});
-$(".marker:eq(1)").on('mouseleave', function() {
-  $(".option1").css('color', '');
-});
-$(".marker:eq(2)").on('mouseleave', function() {
-  $(".option2").css('color', '');
-});
-
-//San Francisco
-map.on('load', function() {
-  map.addLayer({
-    "id": "route",
-    "className": "alpha",
-    "type": "line",
-    "source": {
-      "type": "geojson",
-      "data": {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "LineString",
-          "coordinates": sfRoute
-        }
-      }
+  //hover marks
+  $(".marker:eq("+i+"), .option"+i+"").hover(
+    function(){
+      $('.option'+i+'').css('background-color','lavender'),
+      $(".marker:eq("+i+")").css('background-color','lavender');
     },
-    "layout": {
-      "line-join": "round",
-      "line-cap": "round",
-      "visibility": "none"
-    },
-    "paint": {
-      "line-dasharray": [0, 3],
-      "line-color": "#22A5F7",
-      "line-width": 1
-
+    function(){
+      $('.option'+i+'').css('background-color',''),
+      $(".marker:eq("+i+")").css('background-color','');
     }
-  });
+  );
 
-});
+  //click either
+  $(".marker:eq("+i+"), .option"+i+"").click(
+    function(){
+      $(".anex").not(":eq("+i+")").hide();
+      $(".marker").not(":eq("+i+")").removeClass('selected'),
+      $(".marker:eq("+i+")").addClass('selected');
+      $(".anex:eq("+i+")").toggle();
 
-//Livermore
-map.on('load', function() {
-  map.addLayer({
-    "id": "route1",
-    "className": "alpha",
-    "type": "line",
-    "source": {
-      "type": "geojson",
-      "data": {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "LineString",
-          "coordinates": livermoreRoute
-        }
+    var visibility = map.getLayoutProperty('route'+i+'', 'visibility');
+
+    if (visibility === 'visible') {
+      map.fitBounds(Object.values(locationView)[1]);
+      routeHide();
+      } else {
+      map.fitBounds(Object.values(locationView)[i+2]);
+      $('.sidebar').animate({ scrollTop: places.scroll[i] }, 500, 'swing');
+      routeHide();
+      map.setLayoutProperty('route'+i+'', 'visibility', 'visible');
       }
-    },
-    "layout": {
-      "line-join": "round",
-      "line-cap": "round",
-      "visibility": "none"
-    },
-    "paint": {
-      "line-dasharray": [0, 3],
-      "line-color": "#22A5F7",
-      "line-width": 1
     }
-  });
-
-});
-
-//Aptos
-map.on('load', function() {
-  map.addLayer({
-    "id": "route2",
-    "className": "alpha",
-    "type": "line",
-    "source": {
-      "type": "geojson",
-      "data": {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "LineString",
-          "coordinates": aptosRoute
-        }
-      }
-    },
-    "layout": {
-      "line-join": "round",
-      "line-cap": "round",
-      "visibility": "none"
-    },
-    "paint": {
-      "line-dasharray": [0, 3],
-      "line-color": "#22A5F7",
-      "line-width": 1
-    }
-  });
-
-});
-
-
-//action on dots or LineString
-
-$('.option0, .marker:eq(0)').click(function(e) {
-  var visibility = map.getLayoutProperty('route', 'visibility');
-  $('.anex:eq(0)').toggle();
-
-  if (visibility === 'visible') {
-    map.fitBounds(west);
-    map.setLayoutProperty('route', 'visibility', 'none');
-  }
-  else {
-    map.fitBounds(sfView);
-    $('.anex:eq(1),.anex:eq(2) ').hide(),
-    $('.sidebar').animate({scrollTop:0}, 500, 'swing');
-    map.setLayoutProperty('route2', 'visibility', 'none'),
-    map.setLayoutProperty('route1', 'visibility', 'none'),
-    map.setLayoutProperty('route', 'visibility', 'visible');
-  }
-});
-
-$('.option1, .marker:eq(1)').click( function(e) {
-  var visibility = map.getLayoutProperty('route1', 'visibility');
-  $('.anex:eq(1)').toggle();
-
-  if (visibility === 'visible') {
-    map.fitBounds(west);
-    map.setLayoutProperty('route1', 'visibility', 'none');
-  }
-  else {
-    map.fitBounds(livermoreView);
-    $('.sidebar').animate({scrollTop:200}, 500, 'swing');
-    $('.anex:eq(0),.anex:eq(2)').hide(),
-    map.setLayoutProperty('route', 'visibility', 'none'),
-    map.setLayoutProperty('route1', 'visibility', 'visible'),
-    map.setLayoutProperty('route2', 'visibility', 'none');
-  }
-});
-
-$('.option2, .marker:eq(2)').click(function(e) {
-  var visibility = map.getLayoutProperty('route2', 'visibility');
-
-  $('.anex:eq(2)').toggle();
-
-  if (visibility === 'visible') {
-      map.fitBounds(west);
-      map.setLayoutProperty('route2', 'visibility', 'none');
-  }
-  else {
-      map.fitBounds(aptosView);
-      $('.sidebar').animate({scrollTop:600}, 600, 'swing');
-      $('.anex:eq(0),.anex:eq(1) ').hide(),
-      map.setLayoutProperty('route', 'visibility', 'none'),
-      map.setLayoutProperty('route1', 'visibility', 'none'),
-      map.setLayoutProperty('route2', 'visibility', 'visible');
-  }
-});
+  );
+}
