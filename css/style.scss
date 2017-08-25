@@ -28,9 +28,12 @@ a{
 
 
 .super-map{
-  @include size('auto', 485px);
+  @include size('auto', '50%');
   @include transition(box-shadow);
   background-color: $white;
+  max-width: 500px;
+  min-width: 500px;
+
   border-radius: 4px;
   &:hover{
     @include shadow;
@@ -50,7 +53,7 @@ a{
 
 .container{
   @include flex(center, '', '');
-  @include size(314px, 485px);
+  @include size(314px, 100%);
   position: relative;
   border-radius: 0 0 4px 4px;
   overflow: hidden;
@@ -95,7 +98,7 @@ a{
 
 .back{
   @include arrow;
-  @include hover($blue-1);
+  @include hover($blue-2);
   @include size(40px, 220px);
   color: $blue-1;
   display: block;
@@ -103,7 +106,8 @@ a{
   border-bottom: 1px solid $border-color-3;
   overflow-x: hidden;
   font: 400 14px/40px 'nutanix_soft', sans-serif;
-
+  &:hover{
+  }
   &:before, &:after{
   top: 15px;
   left:23px;
@@ -154,17 +158,33 @@ a{
 
 
 //classes for javascript
-
 .main{
   @extend .marker;
   display: block;
   opacity: 1;
-  border-radius: 0;
+  border-radius: 20px;
   background-color: $background-color-2;
   &:last-of-type{
     opacity: 0.3;
+  }
+  &:hover{
+  background-color: $background-color-1;
   }
 }
 .visible{opacity: 1;}
 .expanded{width: 400px;}
 .selected{background: $blue-1;}
+
+//media queries
+@media only screen
+    and (min-device-width : 375px)
+    and (max-device-width : 667px)
+    and (orientation : portrait)
+    and (-webkit-min-device-pixel-ratio : 2)
+{
+  .super-map {
+    max-width: 380px;
+    min-width: 300px;
+  }
+
+}

@@ -19,7 +19,7 @@ map.on('load', function() {
 
   //datacenter click
   map.on('click', 'dataCenter', function() {
-    map.fitBounds(Object.values(locationView)[0]);
+    map.fitBounds(locationView.usWest);
     $('.anex').hide();
     $('.marker').show();
     $('.map').css('border-bottom-left-radius', '0');
@@ -29,7 +29,7 @@ map.on('load', function() {
   //back actions
   $('.back').click(function() {
     routeHide();
-    map.fitBounds(Object.values(locationView)[0]);
+    map.fitBounds(locationView.usa);
     $('.marker').removeClass('selected');
     $('.marker').hide();
     $('.map').css('border-bottom-left-radius', '4px');
@@ -71,11 +71,11 @@ for (let i = 0; i < $('.cluster').length; i++){
   //hover marks
   $(".marker:eq("+i+"), .option"+i+"").hover(
     function(){
-      $('.option'+i+'').css('background-color','lavender'),
-      $(".marker:eq("+i+")").css('background-color','lavender');
+      $('.option'+i+'').css('color','#22A5F7'),
+      $(".marker:eq("+i+")").css('background-color','#58B9FD');
     },
     function(){
-      $('.option'+i+'').css('background-color',''),
+      $('.option'+i+'').css('color',''),
       $(".marker:eq("+i+")").css('background-color','');
     }
   );
@@ -91,7 +91,7 @@ for (let i = 0; i < $('.cluster').length; i++){
     var visibility = map.getLayoutProperty('route'+i+'', 'visibility');
 
     if (visibility === 'visible') {
-      map.fitBounds(Object.values(locationView)[1]);
+      map.fitBounds(locationView.usWest);
       routeHide();
       } else {
       map.fitBounds(Object.values(locationView)[i+2]);

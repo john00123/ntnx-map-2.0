@@ -42,10 +42,12 @@ a:hover {
 
 .super-map {
   height: "auto";
-  width: 485px;
+  width: "50%";
   box-sizing: border-box;
   transition: box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   background-color: #FFFFFF;
+  max-width: 500px;
+  min-width: 500px;
   border-radius: 4px;
 }
 
@@ -76,7 +78,7 @@ a:hover {
   justify-content: "";
   flex-direction: "";
   height: 314px;
-  width: 485px;
+  width: 100%;
   box-sizing: border-box;
   position: relative;
   border-radius: 0 0 4px 4px;
@@ -174,7 +176,7 @@ a:hover {
 
 .back:hover {
   cursor: pointer;
-  color: #22A5F7;
+  color: #58B9FD;
   background-color: none;
 }
 
@@ -239,12 +241,16 @@ a:hover {
 .main {
   display: block;
   opacity: 1;
-  border-radius: 0;
+  border-radius: 20px;
   background-color: #37414B;
 }
 
 .main:last-of-type {
   opacity: 0.3;
+}
+
+.main:hover {
+  background-color: #22272E;
 }
 
 .visible {
@@ -257,4 +263,11 @@ a:hover {
 
 .selected {
   background: #22A5F7;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  .super-map {
+    max-width: 380px;
+    min-width: 300px;
+  }
 }
